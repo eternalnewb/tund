@@ -1,36 +1,45 @@
 #!/bin/sh
 
-echo "running faux dawin setup script"
-# DIR=$(cd $(dirname $0)/..; pwd -P)
+echo "running dawin setup script"
+DIR=$(cd $(dirname $0)/..; pwd -P)
 
-# ETC_DIR=/etc/tund
-# BIN_DIR=/usr/local/bin
+ETC_DIR=/etc/tund
+BIN_DIR=/usr/local/bin
 
-# # Install tund binary
-# install -m 700 -o root -g root -D "${DIR}/bin/tund" "${BIN_DIR}/tund"
+# Install tund binary
+# TODO check for whether directorory exists (non homebrew users?)
+if [ -d ${BIN_DIR} ]
+  then
+    install -m 700 -o root -g wheel "${DIR}/bin/tund" "${BIN_DIR}/tund"
+  else
+    mkdir -p ${BIN_DIR}
+    install -m 700 -o root -g wheel "${DIR}/bin/tund" "${BIN_DIR}/tund"
+fi
 
-# # Install upstart script
-# if [ -d "/etc/init" ]
-# then
-#   install -m 644 -o root -g root "${DIR}/etc/init/tund.conf" /etc/init/tund.conf
-# else
-#   install -m 755 -o root -g root "${DIR}/etc/init.d/tund" /etc/init.d/tund
-#   update-rc.d tund defaults
-# fi
+# Install launchDaemon
+# TODO install -m 700 -o root -g wheel "${DIR}/bin/tund" "${BIN_DIR}/tund"
 
+if [ ! -e "${ETC_DIR}/key" ]
+then
+  if [ ! -e "${DIR}/etc/key" ]
+  then
+    # Generate key
+    ssh-keygen -b 4096 -N "" -O clear -O permit-port-forwarding -t rsa -f "${DIR}/etc/key"
+    echo "Public key is"
+    cat "${DIR}/etc/key.pub"
+  fi
 
-# if [ ! -e "${ETC_DIR}/key" ]
-# then
-#   if [ ! -e "${DIR}/etc/key" ]
-#   then
-#     # Generate key
-#     ssh-keygen -b 4096 -N "" -O clear -O permit-port-forwarding -t rsa -f "${DIR}/etc/key"
-#     echo "Public key is"
-#     cat "${DIR}/etc/key.pub"
-#   fi
-
-#   # Install key
-#   install -m 600 -o root -g root -D "${DIR}/etc/key" "${ETC_DIR}/key"
-# fi
+  # Install key
+  echo "Beginning key installation process..."
+  echo "from ${DIR}/etc/key to ${ETC_DIR}/key"
+  if [ -d ${ETC_DIR} ]
+  then
+    install -m 600 -o root -g wheel "${DIR}/etc/key" "${ETC_DIR}/key"
+  else
+    mkdir -p ${ETC_DIR}
+    install -m 600 -o root -g wheel "${DIR}/etc/key" "${ETC_DIR}/key"
+  fi
+fi
 
 # service tund start
+echo "start launchDaemon here"
