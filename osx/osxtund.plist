@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.eternalnewb.tund</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>hello</string>
+        <string>world</string>
+    </array>
+    <key>KeepAlive</key>
+    <true/>
+<!--     <key>Sockets</key>
+	<dict>
+    	<key>Listeners</key>
+    	<dict>
+	        <key>SockServiceName</key>
+	        <string>bootps</string>
+	        <key>SockType</key>
+	        <string>dgram</string>
+	        <key>SockFamily</key>
+	        <string>IPv4</string>
+	    </dict>
+	</dict>
+ -->
+    <key>StandardOutPath</key>
+    <string>/var/log/tund.log</string>
+    <key>StandardErrorPath</key>
+    <string>/var/log/tund.log</string>
+<!--     <key>Debug</key>
+    <true/>
+    <key>SoftResourceLimits</key>
+    <dict>
+        <key>Core</key>
+        <integer>9223372036854775807</integer>
+    </dict>
+    <key>HardResourceLimits</key>
+    <dict>
+        <key>Core</key>
+        <integer>9223372036854775807</integer>
+    </dict>
+ -->
+</dict>
+</plist>
