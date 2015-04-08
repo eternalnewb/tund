@@ -5,6 +5,8 @@ DIR=$(cd $(dirname $0)/..; pwd -P)
 
 ETC_DIR=/etc/tund
 BIN_DIR=/usr/local/bin
+LAUNCH_DAEMON_DIR=/Library/LaunchDaemons
+# TODO, change bin dir to /usr/local/libexec per Apple's instructions
 
 # Install tund binary
 # TODO check for whether directorory exists (non homebrew users?)
