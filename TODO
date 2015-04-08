@@ -2,3 +2,7 @@
 * change install to recognize OS X systems and install the launchdaemon
 * get working launchdaemon installed
 
+# NEXT STEPS
+
+* write setup_darwin.sh. beginnings in setup_mess
+* write .plist
