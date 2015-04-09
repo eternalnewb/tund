@@ -18,7 +18,7 @@ if [ -d ${BIN_DIR} ]
 fi
 
 # Install launchDaemon
-# TODO install -m 700 -o root -g wheel "${DIR}/bin/tund" "${BIN_DIR}/tund"
+# TODO install -m 700 -o root -g wheel "${DIR}/bin/tund" "${LAUNCH_DAEMON_DIR}/tund"
 
 if [ ! -e "${ETC_DIR}/key" ]
 then
