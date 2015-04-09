@@ -1,18 +1,17 @@
-Tund (tunneling daemon) establishes a reverse SSH tunnel from some publically
-accessible computer to your own. In the event of theft or loss, you can log in
-to your machine as soon as it connects to the internet.
+Tund (tunneling daemon) establishes a reverse SSH tunnel from some Internet
+accessible computer running OS X or Ubuntu to your own, SSH accessible machine. In the event of theft or loss, you can log in
+to your machine as soon as it connects to the Internet.
 
 It's also useful for machines behind a NAT you'd like to have a tunnel to.
 
 You need two computers: the local host (say, your laptop), and the remote host,
-which is on the internet. Tund will use SSH forwarding to connect a port on the
+which is SSHable on the Internet. Tund will use SSH forwarding to connect a port on the
 remote host to a port on the local host. You can then ssh -p <some-port>
 remote.com to access your local host.
 
-First, edit the options in bin/tund.
+First, edit the options in bin/tund to set the forwarding ports, and the receiving host.
 
-Install tund and generate a passwordless SSH keypair. I've included an upstart
-setup script for you, which should work on Ubuntu.
+Install tund with the setup script which generates a passwordless SSH keypair. I've included upstart & Launchd setup scripts for you, which should work on Ubuntu or recent versions of OS X.
 
   local$ sudo bin/setup
 
