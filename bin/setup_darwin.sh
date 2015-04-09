@@ -4,12 +4,11 @@ echo "running dawin setup script"
 DIR=$(cd $(dirname $0)/..; pwd -P)
 
 ETC_DIR=/etc/tund
-BIN_DIR=/usr/local/bin
+#BIN_DIR=/usr/local/bin
+BIN_DIR=/usr/local/libexec #according to apple docs
 LAUNCH_DAEMON_DIR=/Library/LaunchDaemons
-# TODO, change bin dir to /usr/local/libexec per Apple's instructions
 
 # Install tund binary
-# TODO check for whether directorory exists (non homebrew users?)
 if [ -d ${BIN_DIR} ]
   then
     install -m 700 -o root -g wheel "${DIR}/bin/tund" "${BIN_DIR}/tund"
