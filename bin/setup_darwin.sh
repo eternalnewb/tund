@@ -18,7 +18,7 @@ if [ -d ${BIN_DIR} ]
 fi
 
 # Install launchDaemon
-# TODO install -m 700 -o root -g wheel "${DIR}/bin/tund" "${LAUNCH_DAEMON_DIR}/tund"
+install -m 644 -o root -g wheel "${DIR}/osx/osxtund.plist" "${LAUNCH_DAEMON_DIR}/tund.plist"
 
 if [ ! -e "${ETC_DIR}/key" ]
 then
@@ -43,4 +43,4 @@ then
 fi
 
 # service tund start
-echo "start launchDaemon here"
+launchctl load /Library/LaunchDaemons/tund.plist
