@@ -4,6 +4,8 @@
 <dict>
     <key>Label</key>
     <string>com.eternalnewb.tund</string>
+    <key>Program</key>
+    <string>/usr/local/libexec/tund</string>
     <key>ProgramArguments</key>
     <array>
         <string>hello</string>
@@ -11,19 +13,6 @@
     </array>
     <key>KeepAlive</key>
     <true/>
-<!--     <key>Sockets</key>
-	<dict>
-    	<key>Listeners</key>
-    	<dict>
-	        <key>SockServiceName</key>
-	        <string>bootps</string>
-	        <key>SockType</key>
-	        <string>dgram</string>
-	        <key>SockFamily</key>
-	        <string>IPv4</string>
-	    </dict>
-	</dict>
- -->
     <key>StandardOutPath</key>
     <string>/var/log/tund.log</string>
     <key>StandardErrorPath</key>
@@ -40,6 +29,19 @@
         <key>Core</key>
         <integer>9223372036854775807</integer>
     </dict>
+ -->
+<!--     <key>Sockets</key>
+	<dict>
+    	<key>Listeners</key>
+    	<dict>
+	        <key>SockServiceName</key>
+	        <string>bootps</string>
+	        <key>SockType</key>
+	        <string>dgram</string>
+	        <key>SockFamily</key>
+	        <string>IPv4</string>
+	    </dict>
+	</dict>
  -->
 </dict>
 </plist>
