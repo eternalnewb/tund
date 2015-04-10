@@ -12,7 +12,7 @@ SSHconfiguration:
   SSHport:
   - '22'
   ReconnectInterval:
-  - '300'
+  - 300 # Don't turn this one into a string
   Hostname:
   - hostname.com
   Username:

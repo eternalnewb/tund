@@ -42,5 +42,8 @@ then
   fi
 fi
 
+# Install config file
+install -m 600 -o root -g wheel "${DIR}/etc/tundconf.yaml" "${ETC_DIR}/tundconf.yaml"
+
 # service tund start
 launchctl load /Library/LaunchDaemons/tund.plist

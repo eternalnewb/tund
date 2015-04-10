@@ -10,3 +10,4 @@ x figure out how to pass remote.server & other variables to tund 'bin'
 * move tundconf.yaml to /etc/tund during setup phases
 * parse tundconf.yaml in tund2
 * replace tund with tund2
+* make debug/status stuff in setup_darwin pretty
