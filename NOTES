@@ -4,3 +4,6 @@ Plist notes
 https://developer.apple.com/library/mac/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html
 
 Property list files describing daemons are installed in /Library/LaunchDaemons, and those describing agents are installed in /Library/LaunchAgents or in the LaunchAgents subdirectory of an individual user’s Library directory. (The appropriate location for executables that you launch from your job is /usr/local/libexec.)
+
+ssh -R listening:proxying.com:destport accessiblemachine.com
+ssg -gN -p 22 -i keyfile -R 2222:localhost:22 remoteuser@remotehost.com 
