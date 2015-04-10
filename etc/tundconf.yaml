@@ -1,0 +1,19 @@
+Tunnel:
+  Hostname:
+  - hostname.com
+  Username:
+  - Crustophur Rubbins
+  SSHport:
+  - 22
+  TunnelPorts:
+  - 22,2222
+  - 5900,59000
+SSHconfiguration:
+  Bin:
+  - /usr/bin/ssh
+  ID:
+  - /etc/tund/key
+  Opts:
+  - -gN
+  ReconnectInterval:
+  - 300
