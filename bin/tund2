@@ -1,0 +1,64 @@
+#!/usr/bin/env ruby
+
+require 'psych'
+opts = Psych.load_file("/etc/tundconf.yaml")
+
+ssh_bin = opts['SSHconfiguration']['Bin']
+ssh_id = opts['SSHconfiguration']['ID']
+ssh_opts = opts['SSHconfiguration']['Opts']
+ssh_reco_inter = opts['SSHconfiguration']['ReconnectInterval']
+
+opts['Tunnel']['Ports'].each do |entry|
+#opts = {
+#  :local => {
+#    :host => 'localhost',     # Local host to forward to
+#    :port => 22               # Local port to forward to
+#  },
+#  :remote => {
+#    :host => 'remote.server',    # Remote host to connect to
+#    :user => 'tunnel',        # Remote user
+#    :ssh_port => 22,          # Remote port SSH runs on
+#    :fwd_port => 2222         # Remote port which will be forwarded
+#  },
+#  :ssh => {
+#    :bin => '/usr/bin/ssh',         # SSH executable
+#    :identity => '/etc/tund/key',   # The SSH identity file
+#    :opts => '-gN'                  # Additional options
+#  },
+#  :interval => 300            # How often to attempt reconnection, in seconds
+#}
+
+class Tunneler
+  def initialize(opts)
+    @opts = opts
+  end
+
+  def run
+    begin
+      tunnel
+    rescue => e
+      puts e
+      puts e.backtrace.join("\n")
+    ensure
+      sleep @opts[:interval]
+    end
+  end
+
+  # Opens the SSH tunnel
+  def tunnel
+    system @opts[:ssh][:bin],
+      @opts[:ssh][:opts],
+      '-p', @opts[:remote][:ssh_port].to_s,
+      '-i', @opts[:ssh][:identity],
+      '-R', [
+        @opts[:remote][:fwd_port],
+        @opts[:local][:host],
+        @opts[:local][:port]
+      ].join(':'),
+      "#{@opts[:remote][:user]}@#{@opts[:remote][:host]}"
+  end
+end
+
+if $0 == __FILE__
+  Tunneler.new(opts).run
+end
