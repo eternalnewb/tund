@@ -1,4 +1,4 @@
-* change tund.rb to allow multiple port forwards
+x change tund.rb to allow multiple port forwards
 x change install to recognize OS X systems and install the launchdaemon
 x get working launchdaemon installed
 
@@ -7,7 +7,7 @@ x get working launchdaemon installed
 x write setup_darwin.sh. beginnings in setup_mess
 x write .plist
 x figure out how to pass remote.server & other variables to tund 'bin'
-* move tundconf.yaml to /etc/tund during setup phases
-* parse tundconf.yaml in tund2
-* replace tund with tund2
+x move tundconf.yaml to /etc/tund during setup phases
+x parse tundconf.yaml in tund2
+x replace tund with tund2
 * make debug/status stuff in setup_darwin pretty
