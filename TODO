@@ -1,6 +1,7 @@
 x change tund.rb to allow multiple port forwards
 x change install to recognize OS X systems and install the launchdaemon
 x get working launchdaemon installed
+* test in *NIX
 
 # NEXT STEPS
 
