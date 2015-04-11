@@ -1,28 +1,25 @@
 #!/usr/bin/env ruby
 
-opts = {
-  :local => {
-    :host => 'localhost',     # Local host to forward to
-    :port => 22               # Local port to forward to
-  },
-  :remote => {
-    :host => 'remote.server',    # Remote host to connect to
-    :user => 'tunnel',        # Remote user
-    :ssh_port => 22,          # Remote port SSH runs on
-    :fwd_port => 2222         # Remote port which will be forwarded
-  },
-  :ssh => {
-    :bin => '/usr/bin/ssh',         # SSH executable
-    :identity => '/etc/tund/key',   # The SSH identity file
-    :opts => '-gN'                  # Additional options
-  },
-  :interval => 300            # How often to attempt reconnection, in seconds
-}
+require 'psych'
+opts = Psych.load_file("/etc/tund/tundconf.yaml")
+
+$ssh_bin = opts['SSHconfiguration']['Bin']
+$ssh_id = opts['SSHconfiguration']['ID']
+$ssh_opts = opts['SSHconfiguration']['Opts']
+$ssh_reco_inter = opts['SSHconfiguration']['ReconnectInterval']
+$ssh_port = opts['SSHconfiguration']['SSHport']
+$ssh_user = opts['SSHconfiguration']['Username']
+$ssh_host = opts['SSHconfiguration']['Hostname']
+$tunnel_ports = opts['Tunnel']['TunnelPorts']
+
+$tunnel_strings = []
+$tunnel_ports.each do |entry|
+  $tunnel_strings << [entry.split(',')[0], ":localhost:", entry.split(',')[1]].join('')
+end
+$tunnel_strings = $tunnel_strings.join(' -R ')
+puts "tunnel strings are as follows", $tunnel_strings, " "
 
 class Tunneler
-  def initialize(opts)
-    @opts = opts
-  end
 
   def run
     begin
@@ -31,25 +28,29 @@ class Tunneler
       puts e
       puts e.backtrace.join("\n")
     ensure
-      sleep @opts[:interval]
+      sleep $ssh_reco_inter[0].to_i
     end
   end
 
   # Opens the SSH tunnel
   def tunnel
-    system @opts[:ssh][:bin],
-      @opts[:ssh][:opts],
-      '-p', @opts[:remote][:ssh_port].to_s,
-      '-i', @opts[:ssh][:identity],
-      '-R', [
-        @opts[:remote][:fwd_port],
-        @opts[:local][:host],
-        @opts[:local][:port]
-      ].join(':'),
-      "#{@opts[:remote][:user]}@#{@opts[:remote][:host]}"
+    system [$ssh_bin,
+      $ssh_opts,
+      '-p', $ssh_port,
+      '-i', $ssh_id,
+      '-R', $tunnel_strings,
+      "#{$ssh_user[0]}@#{$ssh_host[0]}"].join(" ")
   end
 end
+puts "ssh command is as follows"
+     print [$ssh_bin, # for debuggin'
+       $ssh_opts,
+       '-p', $ssh_port,
+       '-i', $ssh_id,
+       '-R', $tunnel_strings,
+       "#{$ssh_user[0]}@#{$ssh_host[0]}"].join(" ")
+     puts " "
 
 if $0 == __FILE__
-  Tunneler.new(opts).run
+  Tunneler.new.run
 end
